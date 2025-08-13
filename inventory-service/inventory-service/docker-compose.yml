@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  mysql:
+    image: mysql:8.3.0
+    container_name: inventory-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+    ports:
+      - "3308:3306"  # Use 3308 externally to avoid conflict with order-service on 3307
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  mysql_data:
